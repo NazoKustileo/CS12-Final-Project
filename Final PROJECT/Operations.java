@@ -10,7 +10,7 @@ public class Operations {
             return 1;
         }
         else{
-            return baseNumber * calcPower(baseNumber, power - 1);
+            return baseNumber * raiseToPower(baseNumber, power - 1);
             // Decreasing the power by 1 since the power is the amount of times it needs to multiply
             // After power is 0, it unwinds multipying n by n 
             // until we are at the the first call of this method, returning the result
@@ -39,7 +39,6 @@ public class Operations {
     }
 
     public double calcAreaOfACircle(double radius) {
-        
         return Math.PI * radius * radius;
     }
 

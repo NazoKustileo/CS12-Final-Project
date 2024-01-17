@@ -1,47 +1,56 @@
+import java.lang.StringBuilder;
 
 class Display{
 
-    String line;
-    String addition;
-    String subtraction
-    String multiplication;
-    String division;
-    String sortList;
-    String searchSortedList;
-    String power;
-    String square;
-    String factorial;
-    String information;
+    private String line;
+    private int numberOfOptions;
+    private String[] options;
 
-    public display() {
+    //Constructor
+    public Display() {
         
         line = "--------------------";
-        addition = "1-Addition";
-        subtraction = "2-Subtraction";
-        multiplcation = "3-Multiplication";
-        division = "4-Division";
-        sortList = "5-Sort List";
-        searchSortedList = "6-Search Sorted List";
-        power = "7-Raise to Power";
-        square = "8-Square";
-        factorial = "9-Factorial"
-        information = "10-information"
+       
+        options = new String[] { "Addition", "Subtraction", "Multiplication",
+                                 "Division", "Sort List", "Search Sorted List",
+                                 "Raise to Power", "Square","Factorial",
+                                 "Information"};
+        numberOfOptions = options.length - 1;
   
     }
 
 
-    public displayOptions() {
 
-        System.out.println(addition + 
-                           subtraction +
-                           multiplcation +
-                           divison +
-                           sortList +
-                           searchSortedList +
-                           power +
-                           square + 
-                           factorial +
-                           information)
+
+
+
+    private void displayOptions() {
+
+        //Using this to just add onto the exisiting string instead
+        //of having multiple instances of new Strings
+        StringBuilder optionsStringBuilder = new StringBuilder();
+
+        for (int i = 0; i < options.length; i++){
+
+            optionsStringBuilder.append((i + 1) + "-" + options[i]);
+
+            // Used so the last instance doesnt have a space under it
+            // It's up to us if we want there to be a space or not
+            if (i < options.length - 1) {
+                optionsStringBuilder.append("\n");
+            }
+        }
+
+        System.out.println(optionsStringBuilder.toString());
+        System.out.println(line);
+       
+
+    }
+
+    public void introduction() {
+        
+        displayOptions();
+        System.out.println("Input a integer from 1 to " + numberOfOptions + ":");
     }
 
     
