@@ -1,10 +1,55 @@
 import java.lang.Math;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.DoubleBinaryOperator;
 
 public class Operations {
 
+    private Display display;
+    // Maybe switch String to int depending on things
+    private Map<String, DoubleBinaryOperator> operationMap;
+
+    public Operations() {
+        display = new Display();
+        operationMap = new HashMap<>();
+        initializeOperationsMap();
+    }
+
+    private void initializeOperationsMap() {
+
+        // we use this::method in order to reference it, instaed of like using it? when using method()
+        operationMap.put("Addition", this::addition);
+        operationMap.put("Subtraction", this::subtraction);
+        operationMap.put("Multiplication", this::multiplication);
+    
+    }
+
+    // Getters
+    
+
+    //Should get the result?
+    public double getOperation(String operationName, double aVariable, double bVariable) {
+
+        // Check if the operation exists here for safety precossion, remove if not needed
+        if (operationMap.containsKey(operationName)) {
+
+            // Get the operation from the map and apply it to the operands
+            return operationMap.get(operationName).applyAsDouble(aVariable, bVariable);
+        }
+        else {
+            throw new IllegalArgumentException("Unknown operation: " + operationName);
+        }
+       
+    }
+
+
+    private double addition(double a, double b) {
+        return a + b;
+    }
+
 
     // gives result of baseNumber raised to the power
-    public double raiseToPower(double baseNumber, double power){
+    private double raiseToPower(double baseNumber, double power){
 
         if (power == 0){
             return 1;
@@ -19,7 +64,7 @@ public class Operations {
     
 
     // Gives Factorial of n (Recursion)
-    public int calcFactorial(int n){
+    private int calcFactorial(int n){
 
         if(n <= 1) { // if n is a below or equal to 1
             return 1;   
@@ -33,14 +78,16 @@ public class Operations {
     }
 
     // Retuns with the square of number
-    public double square(double baseNumber) {
-
+    private double square(double baseNumber) {
         return baseNumber * baseNumber;
     }
 
-    public double calcAreaOfACircle(double radius) {
+    private double calcAreaOfACircle(double radius) {
         return Math.PI * radius * radius;
     }
+
+
+
 
     
 

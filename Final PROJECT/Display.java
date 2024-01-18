@@ -1,5 +1,3 @@
-import java.lang.StringBuilder;
-
 class Display{
 
     private String line;
@@ -15,8 +13,13 @@ class Display{
                                  "Division", "Sort List", "Search Sorted List",
                                  "Raise to Power", "Square","Factorial",
                                  "Information"};
-        numberOfOptions = options.length - 1;
+        numberOfOptions = options.length;
   
+    }
+
+    // Getter
+    public String[] getOptions() {
+        return options;
     }
 
 
@@ -26,34 +29,34 @@ class Display{
 
     private void displayOptions() {
 
-        //Using this to just add onto the exisiting string instead
-        //of having multiple instances of new Strings
-        StringBuilder optionsStringBuilder = new StringBuilder();
-
+        // Print options with the corresponding number in the front
         for (int i = 0; i < options.length; i++){
+            System.out.println((i + 1) + "-" + options[i]);
 
-            optionsStringBuilder.append((i + 1) + "-" + options[i]);
-
-            // Used so the last instance doesnt have a space under it
-            // It's up to us if we want there to be a space or not
             if (i < options.length - 1) {
-                optionsStringBuilder.append("\n");
+                System.out.println("\n");
             }
         }
 
-        System.out.println(optionsStringBuilder.toString());
-        System.out.println(line);
+        System.out.println(line); // Print line
        
 
     }
 
     public void introduction() {
-        
         displayOptions();
         System.out.println("Input a integer from 1 to " + numberOfOptions + ":");
     }
 
-    
+
+    public void askForVariable(String variable) {
+        System.out.println(variable + ": ");
+    }
+
+    public void printResult(double result) {
+        System.out.println(result);
+    }
+
 
     
 }
