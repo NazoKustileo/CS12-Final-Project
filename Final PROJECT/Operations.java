@@ -18,14 +18,13 @@ public class Operations {
     private void initializeOperationsMap() {
 
         // we use this::method in order to reference it, instaed of like using it? when using method()
-        operationMap.put("Addition", this::addition);
-        operationMap.put("Subtraction", this::subtraction);
-        operationMap.put("Multiplication", this::multiplication);
-    
+        operationMap.put("Addition", this::add);
+        operationMap.put("Subtraction", this::subtract);
+        operationMap.put("Multiplication", this::multiply);
+        operationMap.put("Divison", this::divide);
     }
 
     // Getters
-    
 
     //Should get the result?
     public double getOperation(String operationName, double aVariable, double bVariable) {
@@ -42,13 +41,77 @@ public class Operations {
        
     }
 
-
-    private double addition(double a, double b) {
-        return a + b;
+    private void merge(String[]result, String[]left, String[]right){
+        int i1 = 0;
+        int i2 = 0;
+        for (int i = 0; i < result.length; i++) {
+            if (i2 >= right.length || (i1 < left.length &&
+                    left[i1].compareToIgnoreCase(right[i1]) < 0)) {  //try i2 if it does not work
+                result[i] = left[i1];
+                i1++;
+            } else {
+                result[i] = right[i2];
+                i2++;
+            }
+        }
     }
 
 
-    // gives result of baseNumber raised to the power
+    // Addition
+    private double add(double x, double y) {
+        return x + y;
+    }
+
+    // Subtraction
+    public double subtract(double x, double y) {
+        return x - y;
+    }
+
+    // Multiplication
+    public double multiply(double x, double y) {
+
+        if (x == 0) {
+            return 0;
+        }
+        return x * y;
+    }
+
+    // Division
+    public double divide(double x, double y) {
+        if (x == 0) {
+            return 1;
+        }
+        return x / y;
+    }
+
+
+    // Binary Search
+    public double binarySearch(double[] searchArr, double searchItem) {
+
+        int start = 0;
+        int end = searchArr.length - 1;
+        int mid = -1;
+        int prevMid;
+
+        while (true) {
+            prevMid = mid;
+            mid = (start + end) / 2;
+
+            if (searchArr[mid] == searchItem) {
+                return mid;
+            } else if (searchItem > searchArr[mid]) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+
+            if (prevMid == mid) {
+                return -1;
+            }
+        }
+    }
+
+    // Raises number to the power
     private double raiseToPower(double baseNumber, double power){
 
         if (power == 0){
@@ -77,20 +140,20 @@ public class Operations {
         }
     }
 
-    // Retuns with the square of number
+    
+    // Display PI
+    private void PI() {
+        System.out.println("3.1415926535");   
+    }
+
+    // Squares the number
     private double square(double baseNumber) {
         return baseNumber * baseNumber;
     }
 
+    // Calculate area of Circle
     private double calcAreaOfACircle(double radius) {
         return Math.PI * radius * radius;
     }
-
-
-
-
-    
-
-
 }
 

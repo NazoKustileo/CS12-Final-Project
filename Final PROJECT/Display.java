@@ -27,24 +27,20 @@ class Display{
 
 
 
-    private void displayOptions() {
+    private void options() {
 
         // Print options with the corresponding number in the front
         for (int i = 0; i < options.length; i++){
             System.out.println((i + 1) + "-" + options[i]);
-
-            if (i < options.length - 1) {
-                System.out.println("\n");
-            }
         }
 
         System.out.println(line); // Print line
-       
-
     }
 
+
+    // Prints introduction
     public void introduction() {
-        displayOptions();
+        options();
         System.out.println("Input a integer from 1 to " + numberOfOptions + ":");
     }
 

@@ -15,7 +15,7 @@ public class UserInteraction {
 
     public int getOption() {
 
-        while(true){
+        while(true) {
 
             String userInput = keyboard.nextLine();
 
@@ -29,29 +29,18 @@ public class UserInteraction {
                     System.out.println("Invalid Input. Please input a POSITIVE INTEGER, E.g '4','3'");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid Input. Please input an INTEGER, E.g '4','3' ");
+                System.out.println("Invalid Input. Please input an INTEGER, E.g '4','3' "); // PUT THIS INTO DISPLAY ANDIWIDAWDWA REMINDR REMINDER
             }
         }
     }
 
-    // Get the variables
-    public double[] getVariables() {
+    // Get a variable //Do checking
+    public double getVariable() {
 
-        display.askForVariable("A"); //Asks for the A equations
-        String AVariableString = keyboard.nextLine();
-        AVariableString = AVariableString.trim(); // Remove space from front and back
-        double AVariableDouble = convertStringToDouble(AVariableString); // Convert from String to Double
+        String variableString = keyboard.nextLine(); // Get Variable
+        variableString = variableString.trim(); // Remove space from front and back
 
-        display.askForVariable("B"); //Asks for the B equations
-        String BVariableString = keyboard.nextLine();
-        BVariableString = BVariableString.trim();
-        double BVariableDouble = convertStringToDouble(AVariableString);
-
-
-        // Return both variables in the form of {A, B}
-        double[] twoVariables = {AVariableDouble, BVariableDouble};
-        return twoVariables;
-
+        return convertStringToDouble(variableString); // Return converted String to Double
     }
 
 
@@ -74,6 +63,48 @@ public class UserInteraction {
         return -1; // Outlier SHOULD NEVER HAPPEN
 
     }
+
+    
+    /* 
+          // User chooses BINARY SEARCH
+        if(choice == 1) {
+
+            // Get the array
+            System.out.println("Enter Array: ");
+            Scanner array = new Scanner(System.in);
+            int size = array.nextInt();
+            double[] searchArr = new double[size];
+
+            // Get the item to search
+            System.out.println("Enter Item to Search: ");
+            Scanner item = new Scanner(System.in);
+            double searchItem = item.nextDouble();
+
+            // Checks if the array is sorted to continue
+            boolean isSorted = true;
+            for(int i = 0; i < size - 1; i++){
+                if(searchArr[i] > searchArr[i + 1]){
+                    isSorted = false;
+                    System.out.println("Error; The array you've provided is not sorted");
+                    return ;
+                }
+            }
+            // Performs the binary search
+            operation.binarySearch(searchArr, searchItem);
+        }
+
+
+        // User chooses MERGE SORT
+        if(choice == 2){
+            System.out.println("Enter array to sort: "); // array elements are separated by (,)
+            Scanner getArray = new Scanner(System.in);
+            String arrInput = getArray.nextLine();
+            String[] array = arrInput.split(",");
+            // Performs the merge sort
+            operation.mergeSort(array);
+        }
+
+     */
 
 
     

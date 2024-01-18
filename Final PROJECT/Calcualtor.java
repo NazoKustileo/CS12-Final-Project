@@ -1,12 +1,10 @@
-import java.util.Scanner;
-
 class Calculator {
 
    private Display display;
    private Operations operations;
    private UserInteraction userInput;
 
-   private Scanner keyboard;
+
    
 
    //Construcotr
@@ -32,13 +30,9 @@ class Calculator {
 
      double result = performAction(userInt);
 
-
-     //Recalls from teh top if they want to
-
+     // Display result
      display.printResult(result);
-
      
-
    }
 
    private double performAction(int actionNumber) {
@@ -47,23 +41,16 @@ class Calculator {
 
      String selectedOperation = options[actionNumber - 1];
 
-     // Gets variables in the form (a, b) i think you can do this?
-     double a, b = userInput.getVariables();
+     //Get Variables 
+     display.askForVariable("A"); // Ask for the Variable
+     double a = userInput.getVariable();
 
+     display.askForVariable("B"); // Ask for the Variable
+     double b = userInput.getVariable();
 
-     // Should do the operation
-     double result = operationMap.getOperation(selectedOperation, a, b);
-
-     
-     }
-
-   }
-
-
-
-
-
-
-
-   
+     // Should return the answer
+      return operations.getOperation(selectedOperation, a, b);
+    }
 }
+
+
