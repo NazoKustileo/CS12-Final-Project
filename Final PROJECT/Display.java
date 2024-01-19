@@ -49,8 +49,12 @@ class Display{
         System.out.println(variable + ": ");
     }
 
-    public void printResult(double result) {
+    public void printDouble(double result) {
         System.out.println(result);
+    }
+    
+    public void printArray(String[] array) {
+        System.out.println(array);
     }
 
 

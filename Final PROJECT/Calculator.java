@@ -1,11 +1,9 @@
-class Calculator {
+public class Calculator {
 
    private Display display;
    private Operations operations;
    private UserInteraction userInput;
 
-
-   
 
    //Construcotr
    public Calculator() {
@@ -27,15 +25,17 @@ class Calculator {
      int userInt = userInput.getOption();
 
      // Take the userInt and pick a corresponding method for it
-
-     double result = performAction(userInt);
+    
+     double result = getDouble(userInt);
 
      // Display result
-     display.printResult(result);
+     display.printDouble(result);
      
    }
 
-   private double performAction(int actionNumber) {
+
+
+   private double getResult (int actionNumber) {
 
      String[] options = display.getOptions();
 
@@ -50,6 +50,19 @@ class Calculator {
 
      // Should return the answer
       return operations.getOperation(selectedOperation, a, b);
+    }
+
+    private String[] getSortedArray(int actionNumber) {
+
+      String[] options = display.getOptions();
+
+      String selectedOperation = options[actionNumber - 1];
+
+      display.askForVariable("Array");
+
+      String[] arr = userInput.getArray();
+
+      return operations.performArrayOperation(selectedOperation, arr);
     }
 }
 

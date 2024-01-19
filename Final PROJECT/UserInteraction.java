@@ -17,14 +17,17 @@ public class UserInteraction {
 
         while(true) {
 
+            
+            // Get input from user
             String userInput = keyboard.nextLine();
+            userInput = userInput.trim();
 
             try {
                 int userInt = Integer.parseInt(userInput);
 
                 // if 0 <= userInt <= 10
                 if (userInt >= 0 && userInt <= 10) {
-                    return userInt; //returns double of Price
+                    return userInt; //returns double
                 } else {
                     System.out.println("Invalid Input. Please input a POSITIVE INTEGER, E.g '4','3'");
                 }
@@ -37,10 +40,59 @@ public class UserInteraction {
     // Get a variable //Do checking
     public double getVariable() {
 
-        String variableString = keyboard.nextLine(); // Get Variable
-        variableString = variableString.trim(); // Remove space from front and back
+        while(true) {
 
-        return convertStringToDouble(variableString); // Return converted String to Double
+            // Get input from user
+            String variableString = keyboard.nextLine();
+            variableString = variableString.trim(); // Remove space from front and back
+
+            try {
+                double variableDouble = Double.parseDouble(variableString);
+
+                // if 0 <= userInt <= 10
+                if (variableDouble >= 0 && variableDouble <= 10) {
+                    return convertStringToDouble(variableString); // Return converted String to Double
+                } else {
+                    System.out.println("Invalid Input. Please input a POSITIVE INTEGER, E.g '4','3'");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please input an INTEGER, E.g '4','3' "); // PUT THIS INTO DISPLAY ANDIWIDAWDWA REMINDR REMINDER
+            }
+        }
+
+        
+    }
+
+    // Get an array
+    public String[] getArray(){
+
+        while(true) {
+
+            // Get input from user
+            String userListString = keyboard.nextLine();
+            userListString = userListString.trim(); // Remove space from front and back
+
+            String[] userListArray = userListString.split(" ");
+
+            boolean numberFound = false;
+
+            for (String element: userListArray) {
+
+                // Checks if the element isnt a letter
+                if (!element.contains("[a-zA-Z]+")) {
+                    System.out.println("Invalid Input. Please input an Array of Strings, E.g 'Thing','Thing1' "); // PUT THIS INTO DISPLAY ANDIWIDAWDWA REMINDR REMINDER
+                    break; // Don't need to check the rest if there is a number
+                } 
+                else {
+                    numberFound = false;
+                }
+            }
+
+            // Return list if there is no numbers
+            if (!numberFound) {
+                return userListArray; //return Array
+            }
+        }
     }
 
 
