@@ -42,8 +42,8 @@ public class ArithmeticOperations {
     }
 
     
-    // performs the operation that is needed
-    public double performOperation(String operationName, double... args) {
+    // performs the Arithmetic operation that is needed
+    public double performArithmeticOperation(String operationName, double... args) {
 
         // Check if the operation is known
         if (operationMap.containsKey(operationName)) {
@@ -68,11 +68,9 @@ public class ArithmeticOperations {
 
 
     
-
     /////////////////////////////////////////////////
     ////              TWO VARIABLE OPERATIONS
     /////////////////////////////////////////////////
-
 
     // Addition
     private double add(double x, double y) {
@@ -115,6 +113,9 @@ public class ArithmeticOperations {
             // until we are at the first call of this method, returning the result
         }
     }
+
+
+
 
     /////////////////////////////////////////////////
     ////        SINGLE VARIABLE OPERATIONS

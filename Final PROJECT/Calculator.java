@@ -32,6 +32,7 @@ public class Calculator {
 
         // Press Enter to Reset the loop
         userInput.pressEnterToContinue(); 
+
       }
    }
 
@@ -43,26 +44,28 @@ public class Calculator {
 
       selectedOperation = options[actionNumber - 1]; // Get name of operation
 
-      if (selectedOperation != null) {
+  
+      // Checks if it is an Arithmetic Operation
+      if (arithmeticOperations.isArithmetic(selectedOperation)) {
+        
+        double result = getResult(actionNumber);
+        display.printDouble(result);
+      } 
 
-        // Checks if it is an Arithmetic Operation
-        if (arithmeticOperations.isArithmetic(selectedOperation)) {
-          
-          double result = getResult(actionNumber);
-          display.printDouble(result);
-        } 
-
-        else if (arrayOperations.isSortOperation(selectedOperation))
-        {
-          double[] resultArray = getSortedArray(actionNumber);
-          display.printArray(resultArray);
-        }
-
-        else {
-          double index = getElementFromSortedArray(actionNumber);
-          display.printIndex(index);
-        }
+      else if (arrayOperations.isSortOperation(selectedOperation))
+      {
+        double[] resultArray = getSortedArray(actionNumber);
+        display.printArray(resultArray);
       }
+
+      else if (arrayOperations.isSearchOperation(selectedOperation)){
+        double index = getElementFromSortedArray(actionNumber);
+        display.printIndex(index);
+      }
+      else {
+        stopProgram();
+      }
+    
    }
 
 
@@ -75,7 +78,7 @@ public class Calculator {
      double b = userInput.getVariable("B");
 
      // Should return the answer
-      return arithmeticOperations.performOperation(selectedOperation, a, b);
+      return arithmeticOperations.performArithmeticOperation(selectedOperation, a, b);
     }
 
 
@@ -104,6 +107,12 @@ public class Calculator {
 
       return arrayOperations.performSearchArray(selectedOperation, arr, searchItem);
     }
+
+       
+    private void stopProgram() {
+      System.out.println("Program Stopping...");
+      System.exit(0);  // Exit the program if 'stop' is entered
+  }
 }
 
 

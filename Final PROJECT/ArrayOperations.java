@@ -25,7 +25,7 @@ public class ArrayOperations {
         searchArrayMap.put("Search Sorted Array", this::searchElement);
     }
 
-
+    // Used to tell if it a Sort Operation
     public boolean isSortOperation(String operationName) {
 
         if (sortArrayMap.containsKey(operationName)) {
@@ -36,8 +36,18 @@ public class ArrayOperations {
         }
     }
 
+    // Used to tell if it a Search Operation
+    public boolean isSearchOperation(String operationName) {
 
+        if (searchArrayMap.containsKey(operationName)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
+    // Performs the Sort Operations
     public double[] performSortOperation(String operationName, double[] arr) {
 
         double[] result = sortArrayMap.get(operationName).apply(arr);
@@ -45,6 +55,7 @@ public class ArrayOperations {
 
     }
 
+    // Performs the Search Array Operations
     public double performSearchArray(String operationName, double[] arr, double searchItem) {
 
         double result = searchArrayMap.get(operationName).apply(arr, searchItem);
@@ -55,19 +66,11 @@ public class ArrayOperations {
 
 
 
-
-    
-
-
-
-
     /////////////////////////////////////////////////
     ////              SORT ARRAY OPERATIONS
     /////////////////////////////////////////////////
 
-
-
-    // Main entry point for merge sort with DOUBLES, I switched your code to make it use double only so the MAp could just be one, get rid of this comment from the , once you see this
+    // Main entry point for merge sort with DOUBLES
     private double[] mergeSort(double[] array) {
 
         if (array.length >= 2) {

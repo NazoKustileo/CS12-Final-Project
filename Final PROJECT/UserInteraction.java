@@ -26,6 +26,8 @@ public class UserInteraction {
 
     public int getOption() {
 
+        int lengthOfOptions = display.getOptions().length;
+
         while(true) {
 
             try {
@@ -34,17 +36,17 @@ public class UserInteraction {
                 int userInt = keyboard.nextInt();
            
                 // if 0 <= userInt <= 10
-                if (userInt > 0 && userInt <= 10) {
+                if (userInt > 0 && userInt <= lengthOfOptions) {
                     return userInt; //returns double
                 } else {
-                    System.out.println("Invalid Input. Please input a number 1-" + (display.getOptions().length));
+                    System.out.println("Invalid Input. Please input a number 1-" + (lengthOfOptions));
                 }
             } catch (java.util.InputMismatchException e) {
                 
                 //Eat the previous line
                 keyboard.nextLine();
 
-                System.out.println("Invalid Input. Please input an INTEGER from 1-" + (display.getOptions().length) +
+                System.out.println("Invalid Input. Please input an INTEGER from 1-" + (lengthOfOptions) +
                         ", E.g '1','11' "); // PUT THIS INTO DISPLAY ANDIWIDAWDWA REMINDR REMINDER
 
                 display.printLine();
@@ -89,22 +91,21 @@ public class UserInteraction {
             // Get input from the user
             String userListString = keyboard.nextLine();
             userListString = userListString.trim(); // Remove space from front and back
+            String[] userListArray = userListString.split("[,\\s]+"); // Split by commas and/or spaces
 
-            // Split by commas and/or spaces
-            String[] userListArray = userListString.split("[,\\s]+");
 
-            boolean validInput = true;
 
-    
             // Make new array so we can return double[]
             double[] resultArray = new double[userListArray.length];
             
             // Set of unique Numbers, used so we won't have duplicates if we don't want any
             Set<Double> uniqueElements = new HashSet<>();
         
+            boolean validInput = true; // Set value
 
             // Putting each element into the new array
             for (int i = 0; i < userListArray.length; i++) {
+
                 try {
                     // Try to parse each element as a double
                     double element = Double.parseDouble(userListArray[i]);
@@ -114,6 +115,9 @@ public class UserInteraction {
                         validInput = false;
                         break;
                     }
+
+                    resultArray[i] = element; // Add it to the resultArray if everything above goes through
+                    
                 } catch (NumberFormatException e) {
                     // If parsing fails, set validInput to false
                     validInput = false;
@@ -121,11 +125,12 @@ public class UserInteraction {
                 }
             }
 
+
             // Return the array if input is valid
             if (validInput) {
                 return resultArray;
             } else {
-                System.out.println("Invalid Input. Please input an array of doubles.");
+                System.out.println("Invalid Input. Please input an array of unique doubles.");
             }
         }
     } 
