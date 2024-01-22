@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class Display{
 
     private String line;
@@ -10,9 +12,9 @@ class Display{
         line = "--------------------";
        
         options = new String[] { "Addition", "Subtraction", "Multiplication",
-                                 "Division", "Sort List", "Search Sorted List",
-                                 "Raise to Power", "Square","Factorial",
-                                 "Information"};
+                                 "Division", "Sort Array", "Search Sorted Array",
+                                 "Raise to Power", "Square","Factorial", 
+                                 "Calc Area of Circle", "Information"};
         numberOfOptions = options.length;
   
     }
@@ -21,9 +23,6 @@ class Display{
     public String[] getOptions() {
         return options;
     }
-
-
-
 
 
 
@@ -50,13 +49,23 @@ class Display{
     }
 
     public void printDouble(double result) {
-        System.out.println(result);
+        System.out.println("Result: " + result);
+    }
+
+    public void printIndex(double result) {
+        System.out.format("Index: %.0f%n", result);
     }
     
-    public void printArray(String[] array) {
-        System.out.println(array);
+    public void printArray(double[] array) {
+        System.out.println(Arrays.toString(array));
     }
 
+    public void printLine() {
+        System.out.println(line);
+    }
 
+    public void printEnter() {
+        System.out.println("Press Enter to Continue");
+    }
     
 }

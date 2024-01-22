@@ -1,68 +1,108 @@
 public class Calculator {
 
    private Display display;
-   private Operations operations;
+   private ArithmeticOperations arithmeticOperations;
+   private ArrayOperations arrayOperations;
    private UserInteraction userInput;
+   private String selectedOperation;
 
 
    //Construcotr
    public Calculator() {
         display = new Display();
-        operations = new Operations();
+        arithmeticOperations = new ArithmeticOperations();
+        arrayOperations = new ArrayOperations();
         userInput = new UserInteraction();
+        selectedOperation = null;
    }
    
    
+   // Runs the Calculator
    public void run() {
+      while (true) {
+        
+        // Introduction Section to display all the options
+        display.introduction();
 
-     // Introduction Section to display all the options
+        //Takes user input
+        int userInt = userInput.getOption();
 
-     display.introduction();
+        // Take the userInt and perform the calculactor
+        performAction(userInt);
 
-     //Takes user input and uses the desired function
-     //Outputs answer
+        // Press Enter to Reset the loop
+        userInput.pressEnterToContinue(); 
+      }
+   }
 
-     int userInt = userInput.getOption();
 
-     // Take the userInt and pick a corresponding method for it
-    
-     double result = getDouble(userInt);
+   // Determines which type of Operation to use
+   private void performAction(int actionNumber) {
 
-     // Display result
-     display.printDouble(result);
-     
+      String[] options = display.getOptions(); // could maybe be initilized
+
+      selectedOperation = options[actionNumber - 1]; // Get name of operation
+
+      if (selectedOperation != null) {
+
+        // Checks if it is an Arithmetic Operation
+        if (arithmeticOperations.isArithmetic(selectedOperation)) {
+          
+          double result = getResult(actionNumber);
+          display.printDouble(result);
+        } 
+
+        else if (arrayOperations.isSortOperation(selectedOperation))
+        {
+          double[] resultArray = getSortedArray(actionNumber);
+          display.printArray(resultArray);
+        }
+
+        else {
+          double index = getElementFromSortedArray(actionNumber);
+          display.printIndex(index);
+        }
+      }
    }
 
 
 
    private double getResult (int actionNumber) {
 
-     String[] options = display.getOptions();
-
-     String selectedOperation = options[actionNumber - 1];
-
      //Get Variables 
-     display.askForVariable("A"); // Ask for the Variable
-     double a = userInput.getVariable();
+     double a = userInput.getVariable("A");
 
-     display.askForVariable("B"); // Ask for the Variable
-     double b = userInput.getVariable();
+     double b = userInput.getVariable("B");
 
      // Should return the answer
-      return operations.getOperation(selectedOperation, a, b);
+      return arithmeticOperations.performOperation(selectedOperation, a, b);
     }
 
-    private String[] getSortedArray(int actionNumber) {
 
-      String[] options = display.getOptions();
 
-      String selectedOperation = options[actionNumber - 1];
+    
+    private double[] getSortedArray(int actionNumber) {
 
       display.askForVariable("Array");
 
-      String[] arr = userInput.getArray();
+      double[] arr = userInput.getDoubleArray(false);
 
-      return operations.performArrayOperation(selectedOperation, arr);
+      return arrayOperations.performSortOperation(selectedOperation, arr);
+    }
+
+    private double getElementFromSortedArray(int actionNumber) {
+
+      display.askForVariable("Array");
+
+      double[] arr = userInput.getDoubleArray(true);
+
+      arr = arrayOperations.performSortOperation("Sort Array", arr);
+
+      display.printArray(arr);
+
+      double searchItem = userInput.getVariable("Element: ");
+
+      return arrayOperations.performSearchArray(selectedOperation, arr, searchItem);
     }
 }
 

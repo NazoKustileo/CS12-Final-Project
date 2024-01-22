@@ -1,4 +1,6 @@
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class UserInteraction {
     
@@ -11,154 +13,121 @@ public class UserInteraction {
         keyboard = new Scanner(System.in);
         display = new Display();
 
+}
+
+    public void pressEnterToContinue() {
+        
+        display.printEnter();
+        
+        try {
+            System.in.read();
+        } catch(Exception e) { }
     }
 
     public int getOption() {
 
         while(true) {
 
-            
-            // Get input from user
-            String userInput = keyboard.nextLine();
-            userInput = userInput.trim();
-
             try {
-                int userInt = Integer.parseInt(userInput);
 
+                // Get input from user
+                int userInt = keyboard.nextInt();
+           
                 // if 0 <= userInt <= 10
-                if (userInt >= 0 && userInt <= 10) {
+                if (userInt > 0 && userInt <= 10) {
                     return userInt; //returns double
                 } else {
-                    System.out.println("Invalid Input. Please input a POSITIVE INTEGER, E.g '4','3'");
+                    System.out.println("Invalid Input. Please input a number 1-" + (display.getOptions().length));
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid Input. Please input an INTEGER, E.g '4','3' "); // PUT THIS INTO DISPLAY ANDIWIDAWDWA REMINDR REMINDER
+            } catch (java.util.InputMismatchException e) {
+                
+                //Eat the previous line
+                keyboard.nextLine();
+
+                System.out.println("Invalid Input. Please input an INTEGER from 1-" + (display.getOptions().length) +
+                        ", E.g '1','11' "); // PUT THIS INTO DISPLAY ANDIWIDAWDWA REMINDR REMINDER
+
+                display.printLine();
             }
         }
     }
 
     // Get a variable //Do checking
-    public double getVariable() {
+    public double getVariable(String displayVariable) {
 
         while(true) {
 
-            // Get input from user
-            String variableString = keyboard.nextLine();
-            variableString = variableString.trim(); // Remove space from front and back
-
+            display.askForVariable(displayVariable);
+    
             try {
-                double variableDouble = Double.parseDouble(variableString);
+                double variableDouble = keyboard.nextDouble(); // Get Double
 
-                // if 0 <= userInt <= 10
-                if (variableDouble >= 0 && variableDouble <= 10) {
-                    return convertStringToDouble(variableString); // Return converted String to Double
-                } else {
-                    System.out.println("Invalid Input. Please input a POSITIVE INTEGER, E.g '4','3'");
-                }
-            } catch (NumberFormatException e) {
+                return variableDouble;
+             
+            } catch (java.util.InputMismatchException e) {
+
+                //Eat the previous line
+                keyboard.nextLine();
+
                 System.out.println("Invalid Input. Please input an INTEGER, E.g '4','3' "); // PUT THIS INTO DISPLAY ANDIWIDAWDWA REMINDR REMINDER
+                display.printLine();
             }
         }
 
         
     }
 
-    // Get an array
-    public String[] getArray(){
+    // Get an array of doubles
+    public double[] getDoubleArray(boolean noDuplicateNumbers) {
+    
+    
+        while (true) {
 
-        while(true) {
+            // Eat the previous line
+            keyboard.nextLine();
 
-            // Get input from user
+            // Get input from the user
             String userListString = keyboard.nextLine();
             userListString = userListString.trim(); // Remove space from front and back
 
-            String[] userListArray = userListString.split(" ");
+            // Split by commas and/or spaces
+            String[] userListArray = userListString.split("[,\\s]+");
 
-            boolean numberFound = false;
+            boolean validInput = true;
 
-            for (String element: userListArray) {
-
-                // Checks if the element isnt a letter
-                if (!element.contains("[a-zA-Z]+")) {
-                    System.out.println("Invalid Input. Please input an Array of Strings, E.g 'Thing','Thing1' "); // PUT THIS INTO DISPLAY ANDIWIDAWDWA REMINDR REMINDER
-                    break; // Don't need to check the rest if there is a number
-                } 
-                else {
-                    numberFound = false;
-                }
-            }
-
-            // Return list if there is no numbers
-            if (!numberFound) {
-                return userListArray; //return Array
-            }
-        }
-    }
-
-
-    // Convert String to Double with no exceptions (Returns with negative and stuff)
-    private double convertStringToDouble(String userInput) {
-
-         //runs the code under "try" and if it can't run it then it refers to catch
-         try {
-
-            double variableDouble = Double.parseDouble(userInput);
+    
+            // Make new array so we can return double[]
+            double[] resultArray = new double[userListArray.length];
             
-            return variableDouble ; //returns double
+            // Set of unique Numbers, used so we won't have duplicates if we don't want any
+            Set<Double> uniqueElements = new HashSet<>();
+        
 
-            //"NumberFormatExcpetion" is the excpetion that is caught from converting String to num error occurs
-            //"e" is the the variable that represents the exception
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid Input. Please input a number, E.g '4','4.24' ");
-        }
+            // Putting each element into the new array
+            for (int i = 0; i < userListArray.length; i++) {
+                try {
+                    // Try to parse each element as a double
+                    double element = Double.parseDouble(userListArray[i]);
 
-        return -1; // Outlier SHOULD NEVER HAPPEN
-
-    }
-
-    
-    /* 
-          // User chooses BINARY SEARCH
-        if(choice == 1) {
-
-            // Get the array
-            System.out.println("Enter Array: ");
-            Scanner array = new Scanner(System.in);
-            int size = array.nextInt();
-            double[] searchArr = new double[size];
-
-            // Get the item to search
-            System.out.println("Enter Item to Search: ");
-            Scanner item = new Scanner(System.in);
-            double searchItem = item.nextDouble();
-
-            // Checks if the array is sorted to continue
-            boolean isSorted = true;
-            for(int i = 0; i < size - 1; i++){
-                if(searchArr[i] > searchArr[i + 1]){
-                    isSorted = false;
-                    System.out.println("Error; The array you've provided is not sorted");
-                    return ;
+                    //If noDuplicateNumbers = true and this is not a unique element, then it will run
+                    if (noDuplicateNumbers && !uniqueElements.add(element)) {
+                        validInput = false;
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    // If parsing fails, set validInput to false
+                    validInput = false;
+                    break;
                 }
             }
-            // Performs the binary search
-            operation.binarySearch(searchArr, searchItem);
+
+            // Return the array if input is valid
+            if (validInput) {
+                return resultArray;
+            } else {
+                System.out.println("Invalid Input. Please input an array of doubles.");
+            }
         }
-
-
-        // User chooses MERGE SORT
-        if(choice == 2){
-            System.out.println("Enter array to sort: "); // array elements are separated by (,)
-            Scanner getArray = new Scanner(System.in);
-            String arrInput = getArray.nextLine();
-            String[] array = arrInput.split(",");
-            // Performs the merge sort
-            operation.mergeSort(array);
-        }
-
-     */
-
-
-    
+    } 
 }
 
