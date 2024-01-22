@@ -81,16 +81,17 @@ public class UserInteraction {
 
     // Get an array of doubles
     public double[] getDoubleArray(boolean noDuplicateNumbers) {
+
+        // Eat the previous line
+        keyboard.nextLine();
     
     
         while (true) {
 
-            // Eat the previous line
-            keyboard.nextLine();
-
             // Get input from the user
             String userListString = keyboard.nextLine();
             userListString = userListString.trim(); // Remove space from front and back
+            
             String[] userListArray = userListString.split("[,\\s]+"); // Split by commas and/or spaces
 
 

@@ -14,7 +14,7 @@ class Display{
         options = new String[] { "Addition", "Subtraction", "Multiplication",
                                  "Division", "Sort Array", "Search Sorted Array",
                                  "Raise to Power", "Square","Factorial", 
-                                 "Calc Area of Circle", "Information", "Stop"};
+                                 "Calc Area of Circle", "Stop"};
         numberOfOptions = options.length;
   
     }
