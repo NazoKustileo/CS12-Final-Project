@@ -6,17 +6,16 @@ import java.util.function.BiFunction;
 
 public class ArrayOperations {
 
-
     private Map<String, Function<double[], double[]>> sortArrayMap;
     private Map<String, BiFunction<double[], Double, Double>> searchArrayMap;
 
 
+    // Constructor
     public ArrayOperations() {
         sortArrayMap = new HashMap<>();
         searchArrayMap = new HashMap<>();
         initializeMap();
     }
-
 
     // Initiliaizes the Maps so they are able to be called upon
     private void initializeMap() {
@@ -24,6 +23,12 @@ public class ArrayOperations {
         sortArrayMap.put("Sort Array", this::mergeSort);
         searchArrayMap.put("Search Sorted Array", this::searchElement);
     }
+
+
+
+    /////////////////////////////////////////////////
+    ////      Checks the type of Array Operation
+    /////////////////////////////////////////////////
 
     // Used to tell if it a Sort Operation
     public boolean isSortOperation(String operationName) {
@@ -47,6 +52,12 @@ public class ArrayOperations {
         }
     }
 
+
+
+    /////////////////////////////////////////////////
+    ////        Performs the Desired operation
+    /////////////////////////////////////////////////
+
     // Performs the Sort Operations
     public double[] performSortOperation(String operationName, double[] arr) {
 
@@ -55,7 +66,7 @@ public class ArrayOperations {
 
     }
 
-    // Performs the Search Array Operations
+    // Performs the Search Array Operations 
     public double performSearchArray(String operationName, double[] arr, double searchItem) {
 
         double result = searchArrayMap.get(operationName).apply(arr, searchItem);
@@ -63,7 +74,6 @@ public class ArrayOperations {
         return result;
     }
     
-
 
 
     /////////////////////////////////////////////////
@@ -74,6 +84,7 @@ public class ArrayOperations {
     private double[] mergeSort(double[] array) {
 
         if (array.length >= 2) {
+
             // Calculate mid index
             int mid = array.length / 2;
 
@@ -87,7 +98,9 @@ public class ArrayOperations {
 
             // Merge the sorted left and right subarrays
             return merge(sortedLeft, sortedRight);
-        } else {
+
+        } 
+        else {
             // If the array has one or zero elements, return it as is
             return array;
         }
@@ -95,11 +108,13 @@ public class ArrayOperations {
 
     // Merge two sorted arrays into a single sorted array
     private double[] merge(double[] left, double[] right) {
+
         double[] result = new double[left.length + right.length];
         int i = 0, j = 0, k = 0;
 
         // Compare elements from left and right arrays and merge
         while (i < left.length && j < right.length) {
+
             if (left[i] < right[j]) {
                 result[k++] = left[i++];
             } else {
@@ -122,7 +137,6 @@ public class ArrayOperations {
     
 
 
-    
     /////////////////////////////////////////////////
     ////          SEARCH ARRAY OPERATIONS
     /////////////////////////////////////////////////

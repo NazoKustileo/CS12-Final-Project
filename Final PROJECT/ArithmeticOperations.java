@@ -1,39 +1,47 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.BiFunction;
 
 public class ArithmeticOperations {
 
-    private Map<String, BiFunction<Double, Double, Double>> operationMap;
+    private Map<String, BiFunction<Double, Double, Double>> twoVariableMap;
+    private Map<String, Function<Double, Double>> oneVariableMap;
 
-
+    // Constructor
     public ArithmeticOperations() {
-        operationMap = new HashMap<>();
+        oneVariableMap = new HashMap<>();
+        twoVariableMap = new HashMap<>();
         initializeMap();
     }
-
 
     // Initiliaizes the Maps so they are able to be called upon
     private void initializeMap() {
 
-        operationMap.put("Addition", this::add);
-        operationMap.put("Subtraction", this::subtract);
-        operationMap.put("Multiplication", this::multiply);
-        operationMap.put("Division", this::divide);
-        operationMap.put("Raise to Power", this:: raiseToPower);
+        twoVariableMap.put("Addition", this::add);
+        twoVariableMap.put("Subtraction", this::subtract);
+        twoVariableMap.put("Multiplication", this::multiply);
+        twoVariableMap.put("Division", this::divide);
+        twoVariableMap.put("Raise to Power", this:: raiseToPower);
 
-        operationMap.put("Square", this::square);
-        operationMap.put("Factorial", this::calcFactorial);
-        operationMap.put("CalcAreaOfCircle", this::calcAreaOfACircle);
+        oneVariableMap.put("Square", this::square);
+        oneVariableMap.put("Factorial", this::calcFactorial);
+        oneVariableMap.put("CalcAreaOfCircle", this::calcAreaOfACircle);
 
         // Add more operations as needed
     }
+    
 
-    // Check if it is an Arithmetic Opertion
-    public boolean isArithmetic(String operationName) {
 
-        //If they can find the name in the map then it is arithmetic
-        if (operationMap.containsKey(operationName)) {
+    /////////////////////////////////////////////////
+    ////      Checks the type of Arithemetic
+    /////////////////////////////////////////////////
+
+    // Check if it is a two Variable Arithmetic Opertion
+    public boolean isTwoVariableArithmetic(String operationName) {
+
+        //If they can find the name in the map then it is a two variable operation
+        if (twoVariableMap.containsKey(operationName)) {
             return true;
         }
         else {
@@ -41,33 +49,41 @@ public class ArithmeticOperations {
         }
     }
 
-    
-    // performs the Arithmetic operation that is needed
-    public double performArithmeticOperation(String operationName, double... args) {
+    // Check if it is a single Variable Arithmetic Opertion
+    public boolean isOneVariableArithmetic(String operationName) {
 
-        // Check if the operation is known
-        if (operationMap.containsKey(operationName)) {
-
-            // Find out if there is two arguments or only 1
-            double secondArgument;
-            if (args.length > 1) { // Checks if there is more than 1 argument (meaning there is 2)
-                secondArgument = args[1];
-            } else { // If there is only 1 argument then its just 0
-                secondArgument = 0;
-            }
-
-            // Uses the operation Name to get the method and applies the args returning the result
-            return operationMap.get(operationName).apply(args[0], secondArgument);
-
-        } else {
-            // Throw an exception for unknown operations
-            throw new IllegalArgumentException("Unknown operation: " + operationName);
+        //If they can find the name in the map then it is single variable operation
+        if (oneVariableMap.containsKey(operationName)) {
+            return true;
         }
+        else {
+            return false;
+        }
+    }
+
+
+
+    /////////////////////////////////////////////////
+    ////        Performs the Desired operation
+    /////////////////////////////////////////////////
+
+    // Performs the two Variable Opertion
+    public double performTwoVariableOperation(String operationName, double a, double b) {
+
+        double result = twoVariableMap.get(operationName).apply(a, b);
+        return result; 
+
+    }
+
+    // Performs the one Variable Operation
+    public double performOneVariableOperation(String operationName, double a) {
+
+        double result = oneVariableMap.get(operationName).apply(a);
+        return result;
     }
     
 
-
-    
+  
     /////////////////////////////////////////////////
     ////              TWO VARIABLE OPERATIONS
     /////////////////////////////////////////////////
@@ -99,7 +115,6 @@ public class ArithmeticOperations {
         return x / y;
     }
 
-
     // Raises number to the power
     private double raiseToPower(double baseNumber, double power){
 
@@ -116,19 +131,18 @@ public class ArithmeticOperations {
 
 
 
-
     /////////////////////////////////////////////////
     ////        SINGLE VARIABLE OPERATIONS
     /////////////////////////////////////////////////
 
     // Gives Factorial of n (Recursion)
-    private double calcFactorial(double n, double dummy){
+    private double calcFactorial(double n){
 
         if(n <= 1) { // if n is a below or equal to 1
             return 1;   
         }
         else { 
-            return n * calcFactorial(n - 1, dummy); 
+            return n * calcFactorial(n - 1); 
             // Does the recursion of Q2 with n - 1 and 
             // unwinding to multiply each n - 1 with the previous 
             // until we are at  the first call of this method, returning the factorial
@@ -136,12 +150,12 @@ public class ArithmeticOperations {
     }
 
     // Squares the number
-    private double square(double baseNumber, double dummy) {
+    private double square(double baseNumber) {
         return baseNumber * baseNumber;
     }
 
     // Calculate area of Circle
-    private double calcAreaOfACircle(double radius, double dummy) {
+    private double calcAreaOfACircle(double radius) {
         return Math.PI * radius * radius;
     }
 }

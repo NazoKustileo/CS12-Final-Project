@@ -4,10 +4,11 @@ import java.util.Set;
 
 public class UserInteraction {
     
-
     Scanner keyboard;
     Display display;
 
+    
+    // Constructor
     public UserInteraction() {
 
         keyboard = new Scanner(System.in);
@@ -15,8 +16,15 @@ public class UserInteraction {
 
 }
 
+
+
+    /////////////////////////////////////////////////
+    ////           Get User Input's
+    /////////////////////////////////////////////////
+
+    // If they press enter or smth then it'll go through
     public void pressEnterToContinue() {
-        
+    
         display.printEnter();
         
         try {
@@ -24,9 +32,10 @@ public class UserInteraction {
         } catch(Exception e) { }
     }
 
+    // Get's the users number for options such as addition, subtraction, etc
     public int getOption() {
 
-        int lengthOfOptions = display.getOptions().length;
+        int lengthOfOptions = display.getOptions().length; //Get the length of options
 
         while(true) {
 
@@ -35,26 +44,25 @@ public class UserInteraction {
                 // Get input from user
                 int userInt = keyboard.nextInt();
            
-                // if 0 <= userInt <= 10
+                // if 0 <= userInt <= lengthOfOptions
                 if (userInt > 0 && userInt <= lengthOfOptions) {
                     return userInt; //returns double
                 } else {
-                    System.out.println("Invalid Input. Please input a number 1-" + (lengthOfOptions));
+                    display.printOptionError(); 
                 }
             } catch (java.util.InputMismatchException e) {
                 
                 //Eat the previous line
                 keyboard.nextLine();
 
-                System.out.println("Invalid Input. Please input an INTEGER from 1-" + (lengthOfOptions) +
-                        ", E.g '1','11' "); // PUT THIS INTO DISPLAY ANDIWIDAWDWA REMINDR REMINDER
+                display.printOptionError(); 
 
                 display.printLine();
             }
         }
     }
 
-    // Get a variable //Do checking
+    // Get's the variable
     public double getVariable(String displayVariable) {
 
         while(true) {
@@ -64,15 +72,16 @@ public class UserInteraction {
             try {
                 double variableDouble = keyboard.nextDouble(); // Get Double
 
-                return variableDouble;
+                return variableDouble; // Return the double if they put one
              
             } catch (java.util.InputMismatchException e) {
 
-                //Eat the previous line
-                keyboard.nextLine();
+                keyboard.nextLine(); //Eat the previous line
 
-                System.out.println("Invalid Input. Please input an INTEGER, E.g '4','3' "); // PUT THIS INTO DISPLAY ANDIWIDAWDWA REMINDR REMINDER
+                display.printDoubleError();
+
                 display.printLine();
+                
             }
         }
 
@@ -85,16 +94,15 @@ public class UserInteraction {
         // Eat the previous line
         keyboard.nextLine();
     
-    
         while (true) {
+
+            display.askForVariable("Array"); // Ask for the array
 
             // Get input from the user
             String userListString = keyboard.nextLine();
             userListString = userListString.trim(); // Remove space from front and back
             
             String[] userListArray = userListString.split("[,\\s]+"); // Split by commas and/or spaces
-
-
 
             // Make new array so we can return double[]
             double[] resultArray = new double[userListArray.length];
@@ -130,9 +138,13 @@ public class UserInteraction {
             // Return the array if input is valid
             if (validInput) {
                 return resultArray;
-            } else {
-                System.out.println("Invalid Input. Please input an array of unique doubles.");
-            }
+            } 
+            // If not valid input
+            else {
+                display.printArrayError(noDuplicateNumbers);
+
+                display.printLine();
+            } 
         }
     } 
 }
