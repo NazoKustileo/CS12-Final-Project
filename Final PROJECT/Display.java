@@ -30,7 +30,7 @@ class Display{
 
 
     /////////////////////////////////////////////////
-    ////    General Display (No user input involved)
+    ////              General Display
     /////////////////////////////////////////////////
 
     // Prints options and the number of options
@@ -47,6 +47,11 @@ class Display{
         }
 
         System.out.println(line); // Print line
+    }
+
+    // Clears the Screen
+    public void clearScreen(){
+        System.out.print("\033[H\033[2J"); 
     }
 
     // Prints a breaker line
@@ -81,10 +86,15 @@ class Display{
         }
     }
 
+    // Print the message when stopping the calcualtor
+    public void printStopMessage(){
+        System.out.println("Stopping Program...");
+    }
+
 
 
     /////////////////////////////////////////////////
-    ////   Output Display (Needs user input to run)
+    ////                Output Display
     /////////////////////////////////////////////////
 
     // Grabs a variable and prints it out
@@ -107,4 +117,3 @@ class Display{
         System.out.println(Arrays.toString(array));
     }
 }
-

@@ -84,8 +84,6 @@ public class UserInteraction {
                 
             }
         }
-
-        
     }
 
     // Get an array of doubles

@@ -26,7 +26,7 @@ public class ArithmeticOperations {
 
         oneVariableMap.put("Square", this::square);
         oneVariableMap.put("Factorial", this::calcFactorial);
-        oneVariableMap.put("CalcAreaOfCircle", this::calcAreaOfACircle);
+        oneVariableMap.put("Calc Area of Circle", this::calcAreaOfACircle);
 
         // Add more operations as needed
     }
@@ -100,18 +100,11 @@ public class ArithmeticOperations {
 
     // Multiplication
     private double multiply(double x, double y) {
-
-        if (x == 0) {
-            return 0;
-        }
         return x * y;
     }
 
     // Division
     private double divide(double x, double y) {
-        if (x == 0) {
-            return 1;
-        }
         return x / y;
     }
 
@@ -136,10 +129,16 @@ public class ArithmeticOperations {
     /////////////////////////////////////////////////
 
     // Gives Factorial of n (Recursion)
-    private double calcFactorial(double n){
+    private double calcFactorial(double n) {
 
-        if(n <= 1) { // if n is a below or equal to 1
-            return 1;   
+        // If it is a negative or 0 then returns NaN
+        if(n <= 0){
+            return Double.NaN;
+        }
+
+        // Actual Factorial part
+        if(n == 1) {
+            return 1;
         }
         else { 
             return n * calcFactorial(n - 1); 

@@ -15,9 +15,9 @@ public class Calculator {
       userInput = new UserInteraction();
       selectedOperation = null;
   }
+
+
   
-
-
   ////////////////////////////////////////////////////////
   ////                  MAIN METHODS
   ////////////////////////////////////////////////////////
@@ -26,6 +26,9 @@ public class Calculator {
   public void run() {
 
     while (true) {
+
+      // Clear the screen
+      display.clearScreen();
       
       // Introduction Section to display all the options
       display.introduction();
@@ -91,7 +94,7 @@ public class Calculator {
     double a = userInput.getVariable("A");
     double b = userInput.getVariable("B");
 
-    // Should return the answer
+    // Do the operation and get the result
     return arithmeticOperations.performTwoVariableOperation(selectedOperation, a, b);
   }
 
@@ -102,7 +105,7 @@ public class Calculator {
     //Get Variables 
     double a = userInput.getVariable("A");
 
-    // Should return the answer
+    // Do the operation and return the result
     return arithmeticOperations.performOneVariableOperation(selectedOperation, a);
   }
 
@@ -133,7 +136,7 @@ public class Calculator {
 
   // Method used to stop the program
   private void stopProgram() {
-    System.out.println("Program Stopping...");
+    display.printStopMessage();
     System.exit(0);  // Exit the program if 'stop' is entered
   }
 }
