@@ -114,6 +114,6 @@ class Display{
 
     // Prints the array
     public void printArray(double[] array) {
-        System.out.println(Arrays.toString(array));
+        System.out.println("Result: " + Arrays.toString(array));
     }
 }
