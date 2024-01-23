@@ -56,6 +56,7 @@ public class Calculator {
       double result = getTwoVariableResult(actionNumber);
       display.printDouble(result);
     } 
+    // Checks if it a Single Variable Arithmetic
     else if(arithmeticOperations.isOneVariableArithmetic(selectedOperation))
     {
       double result = getOneVariableResult(actionNumber);
