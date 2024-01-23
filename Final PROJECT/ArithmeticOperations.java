@@ -105,6 +105,11 @@ public class ArithmeticOperations {
 
     // Division
     private double divide(double x, double y) {
+
+        if (y == 0) {
+            return Double.NaN;
+        }
+        
         return x / y;
     }
 
